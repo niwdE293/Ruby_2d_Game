@@ -13,32 +13,37 @@ class Player
     @y_speed = 0
     @x = START_POS_X
     @y = START_POS_Y
-    @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR)
+    @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
   end
 
   def update()
     @hitbox.x += @x_speed
     @hitbox.y += @y_speed
+    @x += @x_speed
+    @y += @y_speed
+    
   end
 
-  def collided()
-    if (r1x + r1w >= r2x &&    // r1 right edge past r2 left
-      r1x <= r2x + r2w &&    // r1 left edge past r2 right
-      r1y + r1h >= r2y &&    // r1 top edge past r2 bottom
-      r1y <= r2y + r2h) {    // r1 bottom edge past r2 top
-        return true;
-  }
-  return false;
-}
+  def collided_with(x, y, width, height)
+    if @hitbox.contains?(x, y) && @hitbox.contains?(x + width, y) && @hitbox.contains?(x, y + height) && @hitbox.contains?(x + width, y + height)
+      puts "contains"
+      return true
+    else 
+      return false
+    end
   end
-end
+end   
 
 
 
-class Object
+class Block
   attr_accessor :x , :y, :width, :height, :color
   def initialize(x, y, width, height, color)
-    @object = Rectangle.new(x: x, y: y, width: width, height: height, color: color)
+    @x = x
+    @y = y 
+    @width = width
+    @height = height
+    @block = Rectangle.new(x: x, y: y, width: width, height: height, color: color, z: 0)
   end
 end
 
@@ -47,7 +52,7 @@ set fps_cap: 60
 
 @player = Player.new()
 
-@object = Object.new(400, 300, 100, 10, 'blue')
+@block = Block.new(400, 300, 150, 150, 'red')
 
 
 on :key_held do |event|
@@ -72,6 +77,11 @@ end
 
 update do
   @player.update
+  if @player.collided_with(@block.x, @block.y, @block.width, @block.height)
+    @player.y_speed = 0
+    @player.x_speed = 0
+  end
+  puts "player x: #{@player.x} y: #{@player.y}"
 end
 
 show

@@ -25,7 +25,7 @@ class Player
   end
 
   def collided_with(x, y, width, height)
-    if @hitbox.contains?(x, y) && @hitbox.contains?(x + width, y) && @hitbox.contains?(x, y + height) && @hitbox.contains?(x + width, y + height)
+    if @hitbox.contains?(x, y) || @hitbox.contains?(x + width, y) || @hitbox.contains?(x, y + height) || @hitbox.contains?(x + width, y + height)
       puts "contains"
       return true
     else 
@@ -81,7 +81,8 @@ update do
     @player.y_speed = 0
     @player.x_speed = 0
   end
-  puts "player x: #{@player.x} y: #{@player.y}"
+  #puts "player x: #{@player.x} y: #{@player.y}"
+  puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end
 
 show

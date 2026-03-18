@@ -25,14 +25,17 @@ class Player
   end
 
   def collided_with(x, y, width, height)
-    if @hitbox.contains?(x, y) || @hitbox.contains?(x + width, y) || @hitbox.contains?(x, y + height) || @hitbox.contains?(x + width, y + height)
-      puts "contains"
-      return true
-    else 
-      return false
-    end
+      if @x + SIZE >= x &&  # Left edge
+        @x <= x + width &&  # Right edge
+        @y + SIZE >= y &&   # Top edge
+        @y <= y + height    # Bottom edge 
+        puts "colided"
+        return true
+      else
+        return false
+      end
   end
-end   
+end 
 
 
 
@@ -76,13 +79,37 @@ on :key_up do |event|
 end
 
 update do
-  @player.update
+  
   if @player.collided_with(@block.x, @block.y, @block.width, @block.height)
-    @player.y_speed = 0
-    @player.x_speed = 0
+    #Left edge
+    if @player.x_speed > 0
+      puts "hit left"
+      @player.x -= 3
+      @player.hitbox.x -= 3
+      
+    #Right edge
+    elsif @player.x_speed < 0
+      puts "hit right"
+      @player.x += 3
+      @player.hitbox.x += 3
+    
+    #Top edge
+    elsif @player.y_speed > 0
+      puts "hit top"
+      @player.y -= 3
+      @player.hitbox.y -= 3
+
+    #Bottom edge  
+    elsif @player.y_speed < 0
+      puts "hit bottom"
+      @player.y += 3
+      @player.hitbox.y -= 3
+    end
+  else 
+    @player.update
   end
   #puts "player x: #{@player.x} y: #{@player.y}"
-  puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
+  #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end
 
 show

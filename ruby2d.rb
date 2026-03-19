@@ -79,35 +79,34 @@ on :key_up do |event|
 end
 
 update do
-  
+  @player.update
   if @player.collided_with(@block.x, @block.y, @block.width, @block.height)
     #Left edge
-    if @player.x_speed > 0
+    if @player.x_speed > 0 && @player.y >=  @block.y && @player.y <= (@block.y + @block.height) 
       puts "hit left"
-      @player.x -= 3
-      @player.hitbox.x -= 3
+      @player.x = @block.x - Player::SIZE 
+      @player.hitbox.x = @block.x - Player::SIZE 
       
     #Right edge
-    elsif @player.x_speed < 0
+    elsif @player.x_speed < 0 
       puts "hit right"
-      @player.x += 3
-      @player.hitbox.x += 3
+      @player.x = @block.x + @block.width 
+      @player.hitbox.x = @block.x + @block.width 
     
     #Top edge
     elsif @player.y_speed > 0
       puts "hit top"
-      @player.y -= 3
-      @player.hitbox.y -= 3
+      @player.y = @block.y - Player::SIZE
+      @player.hitbox.y = @block.y - Player::SIZE  
 
     #Bottom edge  
     elsif @player.y_speed < 0
       puts "hit bottom"
-      @player.y += 3
-      @player.hitbox.y -= 3
-    end
-  else 
-    @player.update
+      @player.y = @block.y + @block.height
+      @player.hitbox.y = @block.y + @block.height 
+    end 
   end
+
   #puts "player x: #{@player.x} y: #{@player.y}"
   #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end

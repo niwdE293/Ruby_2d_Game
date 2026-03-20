@@ -88,26 +88,26 @@ update do
       @player.hitbox.x = @block.x - Player::SIZE 
       
     #Right edge
-    elsif @player.x_speed < 0 
+    elsif @player.x_speed < 0 && @player.y >=  @block.y && @player.y <= (@block.y + @block.height) 
       puts "hit right"
       @player.x = @block.x + @block.width 
       @player.hitbox.x = @block.x + @block.width 
     
     #Top edge
-    elsif @player.y_speed > 0
+    elsif @player.y_speed > 0 && @player.x >=  @block.x && @player.y <= (@block.x + @block.width) 
       puts "hit top"
       @player.y = @block.y - Player::SIZE
       @player.hitbox.y = @block.y - Player::SIZE  
 
     #Bottom edge  
-    elsif @player.y_speed < 0
+    elsif @player.y_speed < 0 && @player.x >=  @block.x && @player.y <= (@block.x + @block.width)
       puts "hit bottom"
       @player.y = @block.y + @block.height
       @player.hitbox.y = @block.y + @block.height 
     end 
   end
 
-  #puts "player x: #{@player.x} y: #{@player.y}"
+  puts "player x: #{@player.x} y: #{@player.y}"
   #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end
 

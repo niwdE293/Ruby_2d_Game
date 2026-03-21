@@ -22,7 +22,6 @@ class Player
     check_collisions(blocks, "horizontal")
 
     #@y += @y_speed
-
     gravity(blocks)
     check_collisions(blocks, "vertical")
 
@@ -30,14 +29,14 @@ class Player
     @hitbox.y = @y
   end
 
+
   def check_collisions(block, direction)
-    p collided_with(block.x, block.y, block.width, block.height)
-    if collided_with(block.x, block.y, block.width, block.height)
+    if collided_with(block)
       #Left edge
       if direction == "horizontal"
         if @x_speed > 0 && @x <=  block.x + (block.width / 2)
           puts "hit left"
-          @x = block.x - Player::SIZE 
+          @x = block.x - SIZE 
           
         #Right edge
         elsif @x_speed < 0 && @x >= block.x + (block.width / 2) 
@@ -47,40 +46,36 @@ class Player
       
       elsif direction == "vertical"
         #Top edge
-        if @y_speed > 0 && @y <=block.y + (block.height / 2) 
+        if @y_speed > 0 && @y <= block.y + (block.height / 2) 
           puts "hit top"
-          @y = block.y - Player::SIZE
+          @y = block.y - SIZE
+          @y_speed = 0
 
         #Bottom edge  
         elsif @y_speed < 0 && @y >=  block.y + (block.height / 2) 
           puts "hit bottom"
           @y = block.y + block.height
+          @y_speed = 0
         end
       end
     end
   end
 
+
   def gravity(block)
-    #p collided_with(block.x, block.y, block.width, block.height)
-    if collided_with(block.x, block.y, block.width, block.height) == true
-      puts "reseting player speed"
-      @y_speed = 0
-    else
-      @y_speed += Player::GRAVITY
-      @y += @y_speed
-    end
+    @y_speed += GRAVITY
+    @y += @y_speed
   end
 
-  def collided_with(x, y, width, height)
-    if @x + SIZE > x &&  # Left edge
-        @x < x + width &&  # Right edge
-        @y + SIZE > y &&   # Top edge
-        @y < y + height    # Bottom edge 
-      puts "collided" 
-      return true
-    else
-      return false
-    end
+
+  def collided_with(block)
+    result = @x + SIZE > block.x &&
+            @x < block.x + block.width &&
+            @y + SIZE > block.y &&
+            @y < block.y + block.height
+
+    puts "collided check result: #{result}"
+    return result
   end
 end 
 

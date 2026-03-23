@@ -7,6 +7,7 @@ class Player
   COLOR = 'blue'
   SPEED = 3
   GRAVITY = 0.2
+  JUMP_STRENGTH = 5
 
   attr_accessor :x_speed, :y_speed, :hitbox , :x, :y
   def initialize()
@@ -19,11 +20,11 @@ class Player
 
   def update(blocks)
     @x += @x_speed
-    check_collisions(blocks, "horizontal")
+    handle_collisions(blocks, "horizontal")
 
     #@y += @y_speed
     gravity(blocks)
-    check_collisions(blocks, "vertical")
+    handle_collisions(blocks, "vertical")
 
     @hitbox.x = @x
     @hitbox.y = @y
@@ -32,32 +33,40 @@ class Player
 
   def check_collisions(block, direction)
     if collided_with(block)
-      #Left edge
+      
       if direction == "horizontal"
+        #Left edge
         if @x_speed > 0 && @x <=  block.x + (block.width / 2)
-          puts "hit left"
-          @x = block.x - SIZE 
-          
+          return "hit left"
         #Right edge
         elsif @x_speed < 0 && @x >= block.x + (block.width / 2) 
-          puts "hit right"
-          @x = block.x + block.width
+          return "hit right"
         end
       
       elsif direction == "vertical"
         #Top edge
-        if @y_speed > 0 && @y <= block.y + (block.height / 2) 
-          puts "hit top"
-          @y = block.y - SIZE
-          @y_speed = 0
-
+        if @y_speed > 0 && @y <= block.y + (block.height / 2)
+          return "hit top"
         #Bottom edge  
         elsif @y_speed < 0 && @y >=  block.y + (block.height / 2) 
-          puts "hit bottom"
-          @y = block.y + block.height
-          @y_speed = 0
+          return "hit bottom"
         end
       end
+    end
+  end
+
+
+  def handle_collisions(block, direction)
+    if check_collisions(block, direction) == "hit left"
+      @x = block.x - SIZE 
+    elsif check_collisions(block, direction) == "hit right"
+      @x = block.x + block.width
+    elsif check_collisions(block, direction) == "hit top"
+      @y = block.y - SIZE
+      @y_speed = 0
+    elsif check_collisions(block, direction) == "hit bottom"
+      @y = block.y + block.height
+      @y_speed = 0
     end
   end
 
@@ -67,14 +76,54 @@ class Player
     @y += @y_speed
   end
 
+  def jump()
+    @y_speed = - JUMP_STRENGTH
+    puts "jumping"
+  end
+
+
+  def on_ground(block)
+    result = test_check_collisions(block, "vertical") == "hit top"
+    p "on_ground: #{result}"
+    return result
+  end
+
+  def test_check_collisions(block, direction)
+    p "in test"
+    if collided_with(block)
+      
+      if direction == "horizontal"
+        #Left edge
+        if @x_speed > 0 && @x <=  block.x + (block.width / 2)
+          return "hit left"
+        #Right edge
+        elsif @x_speed < 0 && @x >= block.x + (block.width / 2) 
+          return "hit right"
+        end
+      
+      elsif direction == "vertical"
+        #Top edge
+        puts "y_speed:#{@y_speed} y: #{@y} block.y: #{block.y + (block.height / 2)} "
+        if @y_speed > 0 && @y <= block.y + (block.height / 2)
+          puts "hit top" 
+          return "hit top"
+        #Bottom edge  
+        elsif @y_speed < 0 && @y >=  block.y + (block.height / 2) 
+          return "hit bottom"
+        end
+      end
+    end
+  end
+      
 
   def collided_with(block)
+    p "@x: #{@x} + SIZE: #{SIZE} > block.x: #{block.x} && @x: #{@x} < block.x: #{block.x} + block.width: #{block.width} && @y: #{@y} + SIZE: #{SIZE} > block.y: #{block.y} && @y: #{@y} < block.y: #{block.y} + block.height: #{block.height}"
     result = @x + SIZE > block.x &&
             @x < block.x + block.width &&
-            @y + SIZE > block.y &&
+            @y + SIZE >= block.y &&
             @y < block.y + block.height
 
-    puts "collided check result: #{result}"
+    puts "collided_with result: #{result}"
     return result
   end
 end 
@@ -93,7 +142,7 @@ class Block
 end
 
 
-set fps_cap: 60
+set fps_cap: 10
 
 @player = Player.new()
 
@@ -109,6 +158,10 @@ on :key_held do |event|
     @player.y_speed = Player::SPEED
   elsif event.key == 'd'
     @player.x_speed = Player::SPEED
+  elsif event.key == "space"
+    if @player.on_ground(block)
+      @player.jump
+    end
   end
 end
 

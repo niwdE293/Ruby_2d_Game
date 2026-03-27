@@ -1,13 +1,16 @@
 require 'ruby2d' 
 require_relative 'player.rb'
-require_relative 'block.rb'
+require_relative 'map.rb'
 
+set width: 700, height: 500
 
 set fps_cap: 60
 
 @player = Player.new()
 
-block = Block.new(0, 300, 500, 150, 'red')
+@map = Map.new()
+
+#block = Block.new(0, 300, 500, 50, 'red')
 
 
 on :key_held do |event|
@@ -19,7 +22,7 @@ on :key_held do |event|
     #@player.y_speed = Player::SPEED
   elsif event.key == 'd'
     @player.x_speed = Player::SPEED
-  elsif event.key == "space"
+  elsif event.key == "space" || event.key == "w"
     if @player.can_jump == true
       @player.jump
     end
@@ -35,7 +38,7 @@ on :key_up do |event|
 end
 
 update do
-  @player.update(block)
+  @player.update(@map.blocks)
   #puts "player x: #{@player.x} y: #{@player.y}"
   #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end

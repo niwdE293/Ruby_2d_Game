@@ -3,9 +3,9 @@ class Player
   START_POS_X = 10
   START_POS_Y = 20
   COLOR = 'blue'
-  SPEED = 3
-  GRAVITY = 0.3
-  JUMP_STRENGTH = 10
+  SPEED = 3.5
+  GRAVITY = 0.5
+  JUMP_STRENGTH = 11
 
   attr_accessor :x_speed, :y_speed, :hitbox , :x, :y, :can_jump
   def initialize()
@@ -22,7 +22,7 @@ class Player
     handle_collisions(blocks, "horizontal")
 
     #@y += @y_speed
-    gravity(blocks)
+    gravity()
     jump_state(blocks)
     handle_collisions(blocks, "vertical")
 
@@ -33,7 +33,6 @@ class Player
 
   def check_collisions(block, direction)
     if collided_with(block)
-      
       if direction == "horizontal"
         #Left edge
         if @x_speed > 0 && @x <= block.x + (block.width / 2)
@@ -56,22 +55,24 @@ class Player
   end
 
 
-  def handle_collisions(block, direction)
-    if check_collisions(block, direction) == "hit left"
-      @x = block.x - SIZE 
-    elsif check_collisions(block, direction) == "hit right"
-      @x = block.x + block.width
-    elsif check_collisions(block, direction) == "hit top"
-      @y = block.y - SIZE
-      @y_speed = 0
-    elsif check_collisions(block, direction) == "hit bottom"
-      @y = block.y + block.height
-      @y_speed = 0
+  def handle_collisions(blocks, direction)
+    blocks.each do |block|
+      if check_collisions(block, direction) == "hit left"
+        @x = block.x - SIZE 
+      elsif check_collisions(block, direction) == "hit right"
+        @x = block.x + block.width
+      elsif check_collisions(block, direction) == "hit top"
+        @y = block.y - SIZE
+        @y_speed = 0
+      elsif check_collisions(block, direction) == "hit bottom"
+        @y = block.y + block.height
+        @y_speed = 0
+      end
     end
   end
 
 
-  def gravity(block)
+  def gravity()
     @y_speed += GRAVITY
     @y += @y_speed
   end
@@ -83,24 +84,22 @@ class Player
     end
   end
 
-  def jump_state(block)
-    if collided_with(block)
-      @can_jump = true
-    else 
-      @can_jump = false
+  def jump_state(blocks)
+    @can_jump = false
+    blocks.each do |block|
+      if check_collisions(block, "vertical") == "hit top" || check_collisions(block, "vertical") == "hit bottom"
+        return @can_jump = true    
+      end
     end
   end
 
       
 
   def collided_with(block)
-    #p "@x: #{@x} + SIZE: #{SIZE} > block.x: #{block.x} && @x: #{@x} < block.x: #{block.x} + block.width: #{block.width} && @y: #{@y} + SIZE: #{SIZE} > block.y: #{block.y} && @y: #{@y} < block.y: #{block.y} + block.height: #{block.height}"
     result = @x + SIZE > block.x &&
             @x < block.x + block.width &&
             @y + SIZE > block.y &&
             @y < block.y + block.height
-
-    #puts "collided_with result: #{result}"
     return result
   end
 end 

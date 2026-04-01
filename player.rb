@@ -7,13 +7,14 @@ class Player
   GRAVITY = 0.5
   JUMP_STRENGTH = 11
 
-  attr_accessor :x_speed, :y_speed, :hitbox , :x, :y, :can_jump
+  attr_accessor :x_speed, :y_speed, :hitbox , :x, :y, :can_jump, :can_grab
   def initialize()
     @x_speed = 0
     @y_speed = 0
     @x = START_POS_X
     @y = START_POS_Y
     @can_jump = false
+    @can_grab = false
     @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
   end
 
@@ -24,6 +25,7 @@ class Player
     #@y += @y_speed
     gravity()
     jump_state(blocks)
+    grab_state(blocks)
     handle_collisions(blocks, "vertical")
 
     @hitbox.x = @x
@@ -78,22 +80,31 @@ class Player
   end
 
   def jump()
-    if @can_jump
-      @y_speed = - JUMP_STRENGTH
-      #puts "jumping"
-    end
+    @y_speed = - JUMP_STRENGTH
+    #puts "jumping"
   end
 
   def jump_state(blocks)
     @can_jump = false
     blocks.each do |block|
-      if check_collisions(block, "vertical") == "hit top" || check_collisions(block, "vertical") == "hit bottom"
+      if check_collisions(block, "vertical") == "hit top" #|| check_collisions(block, "vertical") == "hit bottom"
         return @can_jump = true    
       end
     end
   end
 
-      
+  def grab_state(blocks)
+    @can_grab = false
+    blocks.each do |block|
+      if check_collisions(block, "vertical") == "hit bottom"
+        return @can_grab = true
+      end
+    end
+  end
+
+  def grab()
+    @y_speed = -11
+  end
 
   def collided_with(block)
     result = @x + SIZE > block.x &&

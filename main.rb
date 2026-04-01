@@ -22,9 +22,13 @@ on :key_held do |event|
     #@player.y_speed = Player::SPEED
   elsif event.key == 'd'
     @player.x_speed = Player::SPEED
-  elsif event.key == "space" || event.key == "w"
-    if @player.can_jump == true
+  elsif event.key == "space" #|| event.key == "w"
+    if @player.can_jump 
       @player.jump
+    end
+  elsif event.key == "w"
+    if @player.can_grab 
+      @player.grab
     end
   end
 end

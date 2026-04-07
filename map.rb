@@ -1,7 +1,7 @@
 class Map
   SQUARE_SIZE = 50
 
-  attr_accessor :blocks, :map
+  attr_accessor :blocks, :map, :x, :y
   def initialize()
     @blocks = []
     @map = 

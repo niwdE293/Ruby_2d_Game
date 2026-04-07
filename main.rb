@@ -2,7 +2,6 @@ require 'ruby2d'
 require_relative 'player.rb'
 require_relative 'map.rb'
 
-set width: 700, height: 500
 
 set fps_cap: 60
 
@@ -10,7 +9,10 @@ set fps_cap: 60
 
 @map = Map.new()
 
-#block = Block.new(0, 300, 500, 50, 'red')
+screen_width = @map.map[0].length * Map::SQUARE_SIZE
+screen_height = @map.map.length * Map::SQUARE_SIZE
+
+set width: screen_width, height: screen_height
 
 
 on :key_held do |event|
@@ -29,6 +31,9 @@ on :key_held do |event|
   elsif event.key == "w"
     if @player.can_grab 
       @player.grab
+      @player.grabing = true
+    else 
+      @player.grabing = false
     end
   end
 end

@@ -9,8 +9,8 @@ set fps_cap: 60
 
 @map = Map.new()
 
-screen_width = @map.map[0].length * Map::SQUARE_SIZE
-screen_height = @map.map.length * Map::SQUARE_SIZE
+screen_width = @map.maps[@map.current_map][0].length * Map::SQUARE_SIZE
+screen_height = @map.maps[@map.current_map].length * Map::SQUARE_SIZE
 
 set width: screen_width, height: screen_height
 

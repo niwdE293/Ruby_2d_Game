@@ -46,6 +46,11 @@ class Map
       end
     end
   end
+
+  def next_map()
+    #delete_map()
+    @current_map += 1
+    draw_map(@maps[current_map])
 end
 
 =begin  

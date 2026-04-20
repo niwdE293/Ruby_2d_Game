@@ -1,3 +1,5 @@
+require_relative 'main'
+
 class Player
   SIZE = 25
   START_POS_X = 10
@@ -117,5 +119,18 @@ class Player
             @y + SIZE > block.y &&
             @y < block.y + block.height
     return result
+  end
+
+  def outside_map_position()
+    player_right_side = @x + SIZE
+    right_wall = screen_width
+    player_left_side = @x
+    left_wall = 0
+
+    if player_right_side > right_wall
+      return "right"
+    elsif player_left_side < left_wall
+      return "left"
+    end
   end
 end 

@@ -34,6 +34,20 @@ class Map
     first_map = @maps[@current_map]
     draw_map(first_map)
   end
+
+  def update(player)
+    check_map_swap(player)
+  end
+  
+  def check_map_swap(player)
+    if @current_map > 0 && @current_map < @maps.length
+      if player.outside_map_position == "right"
+        load_next_map()
+      elsif player.outside_map_position == "left"
+        load_previous_map()
+      end
+    end
+  end
   
   def draw_map(map)
     for y in 0..(map.length - 1)
@@ -47,10 +61,24 @@ class Map
     end
   end
 
-  def next_map()
-    #delete_map()
+  def load_next_map()
+    delete_current_map()
     @current_map += 1
-    draw_map(@maps[current_map])
+    map = @maps[current_map]
+    draw_map(map)
+  end
+
+  def load_previous_map()
+    delete_current_map
+    @current_map -= 1
+    map = @maps[current_map]
+    draw_map(map)
+
+  def delete_current_map()
+    @blocks.each do |block|
+      block.remove
+    end
+  end
 end
 
 =begin  
@@ -67,3 +95,4 @@ end
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 =end
+      

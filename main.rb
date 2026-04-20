@@ -48,6 +48,7 @@ end
 
 update do
   @player.update(@map.blocks)
+  @map.update(@player)
   #puts "player x: #{@player.x} y: #{@player.y}"
   #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end

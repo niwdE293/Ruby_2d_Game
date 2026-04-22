@@ -1,5 +1,3 @@
-require_relative 'main'
-
 class Player
   SIZE = 25
   START_POS_X = 10
@@ -103,7 +101,6 @@ class Player
       if check_collisions(block, "vertical") == "hit bottom"
         @grab_y = block.y + Map::SQUARE_SIZE
         @can_grab = true 
-        return
       end
     end
   end
@@ -123,7 +120,7 @@ class Player
 
   def outside_map_position()
     player_right_side = @x + SIZE
-    right_wall = screen_width
+    right_wall = $screen_width
     player_left_side = @x
     left_wall = 0
 
@@ -133,4 +130,6 @@ class Player
       return "left"
     end
   end
+
+  def reverse_pos()
 end 

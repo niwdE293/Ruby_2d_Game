@@ -1,3 +1,4 @@
+
 class Map
   SQUARE_SIZE = 50
 
@@ -40,10 +41,14 @@ class Map
   end
   
   def check_map_swap(player)
-    if @current_map > 0 && @current_map < @maps.length
-      if player.outside_map_position == "right"
+    if player.outside_map_position == "right"
+      if @current_map < @maps.length
         load_next_map()
-      elsif player.outside_map_position == "left"
+        #reverse_player_position()
+      end
+
+    elsif player.outside_map_position == "left"
+      if @current_map > 0 
         load_previous_map()
       end
     end
@@ -62,9 +67,12 @@ class Map
   end
 
   def load_next_map()
+    p "loading next map"
     delete_current_map()
     @current_map += 1
     map = @maps[current_map]
+    p current_map
+    p map
     draw_map(map)
   end
 
@@ -73,6 +81,7 @@ class Map
     @current_map -= 1
     map = @maps[current_map]
     draw_map(map)
+  end
 
   def delete_current_map()
     @blocks.each do |block|

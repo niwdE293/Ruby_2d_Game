@@ -13,6 +13,7 @@ $screen_width = @map.maps[@map.current_map][0].length * Map::SQUARE_SIZE
 $screen_height = @map.maps[@map.current_map].length * Map::SQUARE_SIZE
 
 set width: $screen_width, height: $screen_height
+p $screen_width, $screen_height
 
 
 on :key_held do |event|
@@ -47,7 +48,7 @@ on :key_up do |event|
 end
 
 update do
-  @player.update(@map.blocks)
+  @player.update(@map)
   @map.update(@player)
   #puts "player x: #{@player.x} y: #{@player.y}"
   #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"

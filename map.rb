@@ -1,4 +1,3 @@
-
 class Map
   SQUARE_SIZE = 50
 
@@ -6,7 +5,7 @@ class Map
   def initialize()
     @blocks = []
     @current_map = 0
-    @maps= [
+    @maps = [
     [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -24,11 +23,11 @@ class Map
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0], 
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0], 
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0], 
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ]
     ]
@@ -41,23 +40,30 @@ class Map
   end
   
   def check_map_swap(player)
-    if player.outside_map_position == "right"
-      if @current_map < @maps.length
+    if player.outside_screen_position == "right"
+      if @current_map < @maps.length - 1
         load_next_map()
-        #reverse_player_position()
+        #player.x = - (Player::SIZE / 2)  # 0
+      #else 
+        #player.x = $screen_width - Player::SIZE
       end
 
-    elsif player.outside_map_position == "left"
+    elsif player.outside_screen_position == "left"
       if @current_map > 0 
         load_previous_map()
+        #player.x = $screen_width - (Player::SIZE / 2)  # $screen_width - Player::SIZE
+      #else
+        #player.x = 0
       end
     end
   end
   
   def draw_map(map)
-    for y in 0..(map.length - 1)
+    height = map.length
+    for y in 0...height
       array = map[y]
-      for x in 0..(array.length - 1)
+      width = array.length
+      for x in 0...width
         value = array[x]
         if value == 1
           @blocks << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: 'white')
@@ -67,12 +73,9 @@ class Map
   end
 
   def load_next_map()
-    p "loading next map"
     delete_current_map()
     @current_map += 1
     map = @maps[current_map]
-    p current_map
-    p map
     draw_map(map)
   end
 
@@ -86,22 +89,24 @@ class Map
   def delete_current_map()
     @blocks.each do |block|
       block.remove
+    @blocks = []
+    end
+  end
+
+  def next_map_exists?()
+    if @maps[@current_map + 1]  != nil
+      return true
+    else 
+      return false
+    end
+  end
+
+  def previous_map_exists?()
+    if @current_map < 1
+      return false
+    else 
+      return true
     end
   end
 end
-
-=begin  
-[
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0], 
-[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-]
-=end
       

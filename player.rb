@@ -20,18 +20,16 @@ class Player
     @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
   end
 
-  def update(blocks)
-    @x += @x_speed
-    handle_collisions(blocks, "horizontal")
-
-    #@y += @y_speed
-    gravity()
-    jump_state(blocks)
-    grab_state(blocks)
-    handle_collisions(blocks, "vertical")
-
+  def update(map)
     @hitbox.x = @x
     @hitbox.y = @y
+    @x += @x_speed
+    handle_collisions(map, "horizontal")
+
+    gravity()
+    jump_state(map.blocks)
+    grab_state(map.blocks)
+    handle_collisions(map, "vertical")
   end
 
 
@@ -59,7 +57,12 @@ class Player
   end
 
 
-  def handle_collisions(blocks, direction)
+  def handle_collisions(map, direction)
+    handle_block_collisions(map.blocks, direction)
+    handle_border_collisions(map)
+  end
+
+  def handle_block_collisions(blocks, direction)
     blocks.each do |block|
       if check_collisions(block, direction) == "hit left"
         @x = block.x - SIZE 
@@ -75,6 +78,32 @@ class Player
     end
   end
 
+  def handle_border_collisions(map)
+    player_center = Player::SIZE / 2
+    if outside_screen_position() == "right"
+      if map.next_map_exists?()
+        p "loading next map"
+        map.load_next_map()
+        p "next reseting player too: #{- player_center}"
+        @x = - player_center
+        update(map)
+      else 
+        @x = $screen_width - SIZE
+      end
+
+    elsif outside_screen_position() == "left"
+      if map.previous_map_exists?()
+        p "loading prev map"
+        map.load_previous_map()
+        p "prev reseting player too: #{$screen_width - player_center}"
+        @x = $screen_width - player_center
+        update(map)
+      else 
+        @x = 0
+      end
+    end 
+  end
+          
 
   def gravity()
     @y_speed += GRAVITY
@@ -118,7 +147,7 @@ class Player
     return result
   end
 
-  def outside_map_position()
+  def outside_screen_position()
     player_right_side = @x + SIZE
     right_wall = $screen_width
     player_left_side = @x
@@ -131,5 +160,11 @@ class Player
     end
   end
 
-  def reverse_pos()
+  def outside_screen?()
+    if @x < 0 || @x - SIZE > $screen_width
+      return true
+    else 
+      return false
+    end
+  end
 end 

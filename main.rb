@@ -1,6 +1,7 @@
 require 'ruby2d' 
 require_relative 'player.rb'
 require_relative 'map.rb'
+require_relative 'falling_block.rb'
 
 
 set fps_cap: 60

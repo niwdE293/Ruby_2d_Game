@@ -27,8 +27,8 @@ class Player
     handle_collisions(map, "horizontal")
 
     gravity()
-    jump_state(map.blocks)
-    grab_state(map.blocks)
+    jump_state(map.blocks["ground"])
+    grab_state(map.blocks["ground"])
     handle_collisions(map, "vertical")
   end
 
@@ -58,7 +58,7 @@ class Player
 
 
   def handle_collisions(map, direction)
-    handle_block_collisions(map.blocks, direction)
+    handle_block_collisions(map.blocks["ground"], direction)
     handle_border_collisions(map)
   end
 
@@ -79,29 +79,27 @@ class Player
   end
 
   def handle_border_collisions(map)
-    player_center = Player::SIZE / 2
-    if outside_screen_position() == "right"
-      if map.next_map_exists?()
-        p "loading next map"
-        map.load_next_map()
-        p "next reseting player too: #{- player_center}"
-        @x = - player_center
-        update(map)
-      else 
-        @x = $screen_width - SIZE
-      end
+    # player_center = Player::SIZE / 2
+    # if player_center_outside_screen_position() == "right"
+    #   if map.next_map_exists?()
+    #     p "loading next map"
+    #     map.load_next_map()
+    #     p "next reseting player too: #{- player_center}"
+    #     @x = - player_center
+    #   else 
+    #     @x = $screen_width - SIZE
+    #   end
 
-    elsif outside_screen_position() == "left"
-      if map.previous_map_exists?()
-        p "loading prev map"
-        map.load_previous_map()
-        p "prev reseting player too: #{$screen_width - player_center}"
-        @x = $screen_width - player_center
-        update(map)
-      else 
-        @x = 0
-      end
-    end 
+    # elsif player_center_outside_screen_position() == "left"
+    #   if map.previous_map_exists?()
+    #     p "loading prev map"
+    #     map.load_previous_map()
+    #     p "prev reseting player too: #{$screen_width - player_center}"
+    #     @x = $screen_width - player_center
+    #   else 
+    #     @x = 0
+    #   end
+    # end 
   end
           
 
@@ -112,7 +110,6 @@ class Player
 
   def jump()
     @y_speed = - JUMP_STRENGTH
-    #puts "jumping"
   end
 
   def jump_state(blocks)
@@ -135,7 +132,7 @@ class Player
   end
 
   def grab()
-    @y_speed = - GRAVITY - 0.1
+    @y_speed = - GRAVITY - 0.01 
     @y = @grab_y
   end
 
@@ -159,6 +156,19 @@ class Player
       return "left"
     end
   end
+
+  def center_outside_screen_position()
+    player_center = @x + (SIZE / 2)     
+    right_wall = $screen_width
+    left_wall = 0
+
+    if player_center > right_wall
+      return "right"
+    elsif player_center < left_wall
+      return "left"
+    end
+  end
+
 
   def outside_screen?()
     if @x < 0 || @x - SIZE > $screen_width

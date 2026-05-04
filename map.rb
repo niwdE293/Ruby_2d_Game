@@ -3,12 +3,12 @@ class Map
 
   attr_accessor :blocks, :maps, :x, :y, :current_map
   def initialize()
-    @blocks = []
+    @blocks = {"ground" => [], "falling_blocks" => []}
     @current_map = 0
     @maps = [
     [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], 
     [0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0], 
@@ -20,7 +20,7 @@ class Map
     ],
     [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -37,27 +37,69 @@ class Map
 
   def update(player)
     check_map_swap(player)
+    update_falling_blocks(player)
   end
   
+  def update_falling_blocks(player)
+    @blocks["falling_blocks"].each do |falling_block|
+      falling_block.update(player)
+    end
+  end
+
+  #Finns nästa karta
+    #Är spelarens mitt utanför höger sida av skärmen
+      #Ladda nästa karta
+      #Återställ spelarens position
+  #Nästa karta finns inte
+    #Är spelaren utanför skärmen 
+      #Återställ spelaren till samma vägg
+
+  #Finns tidigare karta 
+    #Är spelarens mitt utanför vänster sida av skärmen
+      #Ladda nästa karta
+      #Återställ spelarens position
+  #Tidigare karta finns inte
+    #Är spelaren utanför skärmen 
+      #Återställ spelaren till samma vägg
+
+    
+
   def check_map_swap(player)
-    if player.outside_screen_position == "right"
-      if @current_map < @maps.length - 1
-        load_next_map()
-        #player.x = - (Player::SIZE / 2)  # 0
-      #else 
-        #player.x = $screen_width - Player::SIZE
+    first_map = 0
+    last_map = maps.length - 1
+    player_center = Player::SIZE / 2
+
+    if current_map == first_map
+      if player.outside_screen_position() == "left"
+        player.x = 0
+      else
+        if player.center_outside_screen_position() == "right"
+          load_next_map()
+          player.x = - player_center
+        end
+      end
+    elsif current_map == last_map
+      if player.outside_screen_position() == "right"
+        player.x = $screen_width - Player::SIZE
+      else
+        if player.center_outside_screen_position() == "left"
+          load_previous_map()
+          player.x = $screen_width - player_center
+        end
       end
 
-    elsif player.outside_screen_position == "left"
-      if @current_map > 0 
+    else
+      if outside_screen_position() == "right"
+        load_next_map()
+        player.x = - player_center
+      elsif outside_screen_position() == "left"
         load_previous_map()
-        #player.x = $screen_width - (Player::SIZE / 2)  # $screen_width - Player::SIZE
-      #else
-        #player.x = 0
+        player.x = $screen_width - player_center
       end
     end
   end
   
+
   def draw_map(map)
     height = map.length
     for y in 0...height
@@ -66,7 +108,10 @@ class Map
       for x in 0...width
         value = array[x]
         if value == 1
-          @blocks << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: 'white')
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: 'white')
+        elsif
+          value == 2
+          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE)
         end
       end
     end
@@ -87,10 +132,12 @@ class Map
   end
 
   def delete_current_map()
-    @blocks.each do |block|
-      block.remove
-    @blocks = []
+    @blocks.each_value do |blocks|
+      blocks.each do |block|
+        block.remove
+      end
     end
+    @blocks = {"ground" => [], "falling_blocks" => []}
   end
 
   def next_map_exists?()

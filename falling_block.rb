@@ -4,6 +4,7 @@ class Falling_block
     FALL_MARGIN = 2 * SIZE
     GRAVITY = Player::GRAVITY
 
+    attr_accessor :x, :y, :x_speed, :y_speed, :falling
     def initialize(x, y, map)
         @hitbox = Square.new(x: x, y: y, size: SIZE, color: COLOR)
         @x = x
@@ -12,6 +13,8 @@ class Falling_block
         @y_speed = 0
         @falling = false
         @map = map
+        @width = SIZE
+        @height = SIZE
     end
 
     def update(player)
@@ -23,9 +26,9 @@ class Falling_block
 
     def handle_fall(player)
         block_center = @x + SIZE / 2
-        if @falling = true
+        if @falling 
             gravity()
-        elsif within_fall_margin?(player.x)
+        elsif within_fall_margin?(player)
             if @falling == false   
                 fall()
             end
@@ -38,8 +41,9 @@ class Falling_block
         @y_speed += GRAVITY
     end
 
-    def within_fall_margin?(x)
-        if x < block_center + FALL_MARGIN && x > block_center - FALL_MARGIN
+    def within_fall_margin?(player)
+        block_center = @x + SIZE / 2
+        if player.x < block_center + FALL_MARGIN && player.x > block_center - FALL_MARGIN
             return true
         end
         return false
@@ -75,5 +79,9 @@ class Falling_block
 
     def gravity()
         @y_speed += GRAVITY
+    end
+
+    def remove()
+        @hitbox.remove
     end
 end

@@ -7,7 +7,7 @@ class Player
   GRAVITY = 0.5
   JUMP_STRENGTH = 11
 
-  attr_accessor :x_speed, :y_speed, :hitbox , :x, :y, :can_jump, :can_grab, :grab_y, :grabing
+  attr_accessor :x_speed, :y_speed, :hitbox , :x, :y, :can_jump, :can_grab, :grab_y, :grabing, :lives
   def initialize()
     @x_speed = 0
     @y_speed = 0
@@ -18,6 +18,7 @@ class Player
     @grab_y = 0
     @grabing = false
     @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
+    @lives = 3
   end
 
   def update(map)
@@ -27,8 +28,8 @@ class Player
     handle_collisions(map, "horizontal")
 
     gravity()
-    jump_state(map.blocks["ground"])
-    grab_state(map.blocks["ground"])
+    jump_state(map.blocks)
+    grab_state(map.blocks)
     handle_collisions(map, "vertical")
   end
 
@@ -58,22 +59,24 @@ class Player
 
 
   def handle_collisions(map, direction)
-    handle_block_collisions(map.blocks["ground"], direction)
+    handle_block_collisions(map.blocks, direction)
     handle_border_collisions(map)
   end
 
-  def handle_block_collisions(blocks, direction)
-    blocks.each do |block|
-      if check_collisions(block, direction) == "hit left"
-        @x = block.x - SIZE 
-      elsif check_collisions(block, direction) == "hit right"
-        @x = block.x + block.width
-      elsif check_collisions(block, direction) == "hit top"
-        @y = block.y - SIZE
-        @y_speed = 0
-      elsif check_collisions(block, direction) == "hit bottom"
-        @y = block.y + block.height
-        @y_speed = 0
+  def handle_block_collisions(block_keys, direction)
+    block_keys.each_value do |blocks|
+      blocks.each do |block|
+        if check_collisions(block, direction) == "hit left"
+          @x = block.x - SIZE 
+        elsif check_collisions(block, direction) == "hit right"
+          @x = block.x + block.width
+        elsif check_collisions(block, direction) == "hit top"
+          @y = block.y - SIZE
+          @y_speed = 0
+        elsif check_collisions(block, direction) == "hit bottom"
+          @y = block.y + block.height
+          @y_speed = 0
+        end
       end
     end
   end
@@ -112,21 +115,25 @@ class Player
     @y_speed = - JUMP_STRENGTH
   end
 
-  def jump_state(blocks)
+  def jump_state(block_keys)
     @can_jump = false
-    blocks.each do |block|
-      if check_collisions(block, "vertical") == "hit top" #|| check_collisions(block, "vertical") == "hit bottom"
-        return @can_jump = true    
+    block_keys.each_value do |blocks|
+      blocks.each do |block|
+        if check_collisions(block, "vertical") == "hit top" #|| check_collisions(block, "vertical") == "hit bottom"
+          return @can_jump = true    
+        end
       end
     end
   end
 
-  def grab_state(blocks)
+  def grab_state(block_keys)
     @can_grab = false
-    blocks.each do |block|
-      if check_collisions(block, "vertical") == "hit bottom"
-        @grab_y = block.y + Map::SQUARE_SIZE
-        @can_grab = true 
+    block_keys.each_value do |blocks|
+      blocks.each do |block|
+        if check_collisions(block, "vertical") == "hit bottom"
+          @grab_y = block.y + Map::SQUARE_SIZE
+          @can_grab = true 
+        end
       end
     end
   end

@@ -4,13 +4,14 @@ class Falling_block
     FALL_MARGIN = 2 * SIZE
     GRAVITY = Player::GRAVITY
 
-    def initialize(x, y)
+    def initialize(x, y, map)
         @hitbox = Square.new(x: x, y: y, size: SIZE, color: COLOR)
         @x = x
         @y = y
         @x_speed = 0
         @y_speed = 0
         @falling = false
+        @map = map
     end
 
     def update(player)
@@ -45,23 +46,23 @@ class Falling_block
     end
 
     def handle_ground_collisions()
-        # if hit_ground?()
-        #     @y_speed =  0
-        #     @map.blocks["ground"].each do ground_block
-        #         if collided_with(ground_block)
-        #             @x = ground_block.x + SIZE
-        #         end
-        #     end
-        # end
+        if hit_ground?()
+            @y_speed =  0
+            @map.blocks["ground"].each do |ground_block|
+                if collided_with(ground_block)
+                    @y = ground_block.y - SIZE
+                end
+            end
+        end
     end
 
     def hit_ground?()
-        # @map.blocks["ground"].each do ground_block
-        #     if collided_with(ground_block)
-        #         return true
-        #     end
-        # end
-        # return false
+        @map.blocks["ground"].each do |ground_block|
+            if collided_with(ground_block)
+                return true
+            end
+        end
+        return false
     end
 
     def collided_with(block)

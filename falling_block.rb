@@ -29,6 +29,7 @@ class Falling_block
                 fall()
             end
         end
+        @y += @y_speed
     end
 
     def fall()
@@ -44,23 +45,23 @@ class Falling_block
     end
 
     def handle_ground_collisions()
-        if hit_ground?()
-            @y_speed =  0
-            @map.blocks["ground"].each do ground_block
-                if collided_with(ground_block)
-                    @x = ground_block.x + SIZE
-                end
-            end
-        end
+        # if hit_ground?()
+        #     @y_speed =  0
+        #     @map.blocks["ground"].each do ground_block
+        #         if collided_with(ground_block)
+        #             @x = ground_block.x + SIZE
+        #         end
+        #     end
+        # end
     end
 
     def hit_ground?()
-        @map.blocks["ground"].each do ground_block
-            if collided_with(ground_block)
-                return true
-            end
-        end
-        return false
+        # @map.blocks["ground"].each do ground_block
+        #     if collided_with(ground_block)
+        #         return true
+        #     end
+        # end
+        # return false
     end
 
     def collided_with(block)
@@ -69,6 +70,9 @@ class Falling_block
                 @y + SIZE > block.y &&
                 @y < block.y + block.height
         return result
-    end
+    end 
 
+    def gravity()
+        @y_speed += GRAVITY
+    end
 end

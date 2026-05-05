@@ -155,5 +155,4 @@ class Map
       return true
     end
   end
-end
-      
+end      

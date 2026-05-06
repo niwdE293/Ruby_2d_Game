@@ -45,23 +45,6 @@ class Map
       falling_block.update(player)
     end
   end
-
-  #Finns nästa karta
-    #Är spelarens mitt utanför höger sida av skärmen
-      #Ladda nästa karta
-      #Återställ spelarens position
-  #Nästa karta finns inte
-    #Är spelaren utanför skärmen 
-      #Återställ spelaren till samma vägg
-
-  #Finns tidigare karta 
-    #Är spelarens mitt utanför vänster sida av skärmen
-      #Ladda nästa karta
-      #Återställ spelarens position
-  #Tidigare karta finns inte
-    #Är spelaren utanför skärmen 
-      #Återställ spelaren till samma vägg
-
     
 
   def check_map_swap(player)
@@ -155,4 +138,14 @@ class Map
       return true
     end
   end
-end      
+
+  def remove_block(block)
+    for i in 0..@blocks["falling_blocks"].length 
+      comparison_block = @blocks["falling_blocks"][i] 
+      p comparison_block
+      if block == comparison_block
+        @blocks["falling_blocks"].delete_at(i)
+      end
+    end
+  end
+end

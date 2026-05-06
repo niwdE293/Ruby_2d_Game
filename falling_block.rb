@@ -27,7 +27,12 @@ class Falling_block
     def handle_fall(player)
         block_center = @x + SIZE / 2
         if @falling 
-            gravity()
+            if fell_on(player)
+                remove()
+                player.lives -= 1
+            else
+                gravity()
+            end
         elsif within_fall_margin?(player)
             if @falling == false   
                 fall()
@@ -83,5 +88,37 @@ class Falling_block
 
     def remove()
         @hitbox.remove
+        @map.remove_block(self)
+    end
+
+    def check_collisions(block, direction)
+        if collided_with(block)
+            if direction == "horizontal"
+                #Left edge
+                if @x_speed > 0 && @x <= block.x + (block.width / 2)
+                return "hit left"
+                #Right edge
+                elsif @x_speed < 0 && @x >= block.x + (block.width / 2) 
+                return "hit right"
+                end
+            
+            elsif direction == "vertical"
+                #Top edge
+                if @y_speed > 0 && @y <= block.y + (block.height / 2)
+                return "hit top"
+                #Bottom edge  
+                elsif @y_speed < 0 && @y >=  block.y + (block.height / 2) 
+                return "hit bottom"
+                end
+            end
+        end
+    end
+
+
+    def fell_on(player)
+        if check_collisions(player, "vertical") == "hit top" 
+            return true
+        end
+        return false
     end
 end

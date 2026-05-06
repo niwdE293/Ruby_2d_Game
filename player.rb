@@ -15,6 +15,8 @@ class Player
     @y = START_POS_Y
     @can_jump = false
     @can_grab = false
+    @width = SIZE
+    @height = SIZE
     @grab_y = 0
     @grabing = false
     @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
@@ -60,7 +62,6 @@ class Player
 
   def handle_collisions(map, direction)
     handle_block_collisions(map.blocks, direction)
-    handle_border_collisions(map)
   end
 
   def handle_block_collisions(block_keys, direction)
@@ -79,30 +80,6 @@ class Player
         end
       end
     end
-  end
-
-  def handle_border_collisions(map)
-    # player_center = Player::SIZE / 2
-    # if player_center_outside_screen_position() == "right"
-    #   if map.next_map_exists?()
-    #     p "loading next map"
-    #     map.load_next_map()
-    #     p "next reseting player too: #{- player_center}"
-    #     @x = - player_center
-    #   else 
-    #     @x = $screen_width - SIZE
-    #   end
-
-    # elsif player_center_outside_screen_position() == "left"
-    #   if map.previous_map_exists?()
-    #     p "loading prev map"
-    #     map.load_previous_map()
-    #     p "prev reseting player too: #{$screen_width - player_center}"
-    #     @x = $screen_width - player_center
-    #   else 
-    #     @x = 0
-    #   end
-    # end 
   end
           
 

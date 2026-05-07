@@ -88,7 +88,7 @@ class Falling_block
 
     def remove()
         @hitbox.remove
-        @map.remove_block(self)
+        @map.remove_falling_block(self)
     end
 
     def check_collisions(block, direction)

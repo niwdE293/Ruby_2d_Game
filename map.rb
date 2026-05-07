@@ -139,7 +139,7 @@ class Map
     end
   end
 
-  def remove_block(block)
+  def remove_falling_block(block)
     for i in 0..@blocks["falling_blocks"].length 
       comparison_block = @blocks["falling_blocks"][i] 
       p comparison_block

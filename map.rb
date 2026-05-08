@@ -1,3 +1,6 @@
+require 'tmx'
+require_relative 'map.tmx'
+
 class Map
   SQUARE_SIZE = 50
 

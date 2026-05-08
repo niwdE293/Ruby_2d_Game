@@ -2,8 +2,10 @@
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Alla filer (*)",
     "fileStates": {
         "Textures.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 3,
             "scaleInEditor": 1
         },
@@ -11,27 +13,25 @@
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 292,
-                "y": 337.5
+                "x": 220.5,
+                "y": 378
             }
+        },
+        "map/test_textures.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
     "last.imagePath": "C:/Users/edwin.adel/Downloads",
-    "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
     "openFiles": [
-        "map.tmx",
-        "Textures.tsx"
+        "map.tmx"
     ],
     "project": "namnlös.tiled-project",
     "recentFiles": [
-        "Textures.tsx",
-        "map.tmx"
+        "map.tmx",
+        "map/test_textures.tsx",
+        "Textures.tsx"
     ],
-    "tileset.lastUsedFormat": "tsx",
-    "tileset.tileSize": {
-        "height": 16,
-        "width": 16
-    }
+    "tileset.lastUsedFormat": "tsx"
 }

@@ -1,5 +1,5 @@
 class Player
-  SIZE = 25
+  SIZE = 16
   START_POS_X = 10
   START_POS_Y = 20
   COLOR = 'blue'

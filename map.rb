@@ -1,5 +1,7 @@
 require 'tmx'
 require_relative 'tmx_map.rb'
+require_relative 'tileset.rb'
+
 
 class Map
   SQUARE_SIZE = 16
@@ -9,32 +11,6 @@ class Map
     @blocks = {"ground" => [], "falling_blocks" => []}
     @current_map = 0
     @maps = [get_map('map/map.tmx')]
-    # [
-    # [
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], 
-    # [0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0], 
-    # [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    # ],
-    # [
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-    # [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    # ]
-    # ]
     first_map = @maps[@current_map]
     draw_map(first_map)
   end
@@ -96,9 +72,13 @@ class Map
       for x in 0...width
         value = array[x]
         if value == 1
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: 'white')
-        elsif
-          value == 0
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('grass', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 2
+          $tileset.set_tile('ground', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 11 
+          $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 0
           @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self)
         end
       end

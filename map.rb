@@ -10,7 +10,7 @@ class Map
   def initialize()
     @blocks = {"ground" => [], "falling_blocks" => []}
     @current_map = 0
-    @maps = [get_map('map/map.tmx')]
+    @maps = [get_map('map/map.tmx'), get_map('map/map2.tmx')]
     first_map = @maps[@current_map]
     draw_map(first_map)
   end
@@ -71,14 +71,42 @@ class Map
       width = array.length
       for x in 0...width
         value = array[x]
-        if value == 1
+        if value == 40
           @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
           $tileset.set_tile('grass', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 2
+        elsif value == 67
           $tileset.set_tile('ground', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 11 
+        elsif value == 95 
           $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 125 
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('round_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 127
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('round_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 157 
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('top_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 159 
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('top_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 42 
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('levitating_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 39  
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('levitating_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 89  
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('levitating_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 90
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('levitating_bottom_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        elsif value == 87
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+          $tileset.set_tile('levitating_bottom_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
         elsif value == 0
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
           @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self)
         end
       end

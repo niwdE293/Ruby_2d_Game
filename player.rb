@@ -21,6 +21,7 @@ class Player
     @grabing = false
     @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
     @lives = 3
+    @lives_text = Text.new("Lives: #{@lives}", x: 20, y: 20, style: 'bold', size: 20, color: 'red')
   end
 
   def update(map)
@@ -35,7 +36,7 @@ class Player
     handle_collisions(map, "vertical")
   end
 
-
+  #Finds which side of a block was hit
   def check_collisions(block, direction)
     if collided_with(block)
       if direction == "horizontal"
@@ -59,11 +60,12 @@ class Player
     end
   end
 
-
+  #Handles collisions for a specific direction 
   def handle_collisions(map, direction)
     handle_block_collisions(map.blocks, direction)
   end
 
+  #Handles collisions with all blocks in the current map.
   def handle_block_collisions(block_keys, direction)
     block_keys.each_value do |blocks|
       blocks.each do |block|
@@ -92,17 +94,19 @@ class Player
     @y_speed = - JUMP_STRENGTH
   end
 
+  #Determines if the player can jump.
   def jump_state(block_keys)
     @can_jump = false
     block_keys.each_value do |blocks|
       blocks.each do |block|
-        if check_collisions(block, "vertical") == "hit top" #|| check_collisions(block, "vertical") == "hit bottom"
+        if check_collisions(block, "vertical") == "hit top" 
           return @can_jump = true    
         end
       end
     end
   end
 
+  #Determines if the player can grab.
   def grab_state(block_keys)
     @can_grab = false
     block_keys.each_value do |blocks|
@@ -120,6 +124,7 @@ class Player
     @y = @grab_y
   end
 
+  #Checks if player has collided with a block.
   def collided_with(block)
     result = @x + SIZE > block.x &&
             @x < block.x + block.width &&
@@ -128,6 +133,7 @@ class Player
     return result
   end
 
+  #Returns which side of the screen the player has exited.
   def outside_screen_position()
     player_right_side = @x + SIZE
     right_wall = $screen_width
@@ -141,6 +147,7 @@ class Player
     end
   end
 
+  #Returns which side of the screen the center of player has exited.
   def center_outside_screen_position()
     player_center = @x + (SIZE / 2)     
     right_wall = $screen_width
@@ -153,12 +160,23 @@ class Player
     end
   end
 
-
+  #Checks if player is outside the screen.
   def outside_screen?()
     if @x < 0 || @x - SIZE > $screen_width
       return true
     else 
       return false
     end
+  end
+
+  #Updates the text for current lives.
+  def display_lives()
+    @lives_text.remove
+    @lives_text = Text.new(
+      "Lives: #{@lives}",
+      x: 20, y: 20,
+      style: 'bold',
+      size: 20,
+      color: 'red')
   end
 end 

@@ -10,6 +10,7 @@ set fps_cap: 60
 
 @map = Map.new()
 
+#Calculates screen height and wisth based on map and square size.
 $screen_width = @map.maps[@map.current_map][0].length * Map::SQUARE_SIZE
 $screen_height = @map.maps[@map.current_map].length * Map::SQUARE_SIZE
 
@@ -18,15 +19,11 @@ p $screen_width, $screen_height
 
 
 on :key_held do |event|
-  #if event.key == 'w'
-    #@player.y_speed = - Player::SPEED
   if event.key == 'a'
     @player.x_speed = - Player::SPEED
-  #elsif event.key == 's'
-    #@player.y_speed = Player::SPEED
   elsif event.key == 'd'
     @player.x_speed = Player::SPEED
-  elsif event.key == "space" #|| event.key == "w"
+  elsif event.key == "space" 
     if @player.can_jump 
       @player.jump
     end
@@ -41,8 +38,6 @@ on :key_held do |event|
 end
 
 on :key_up do |event|
-  #if event.key == 'w'|| event.key == 's'
-    #@player.y_speed = 0
   if event.key == 'a' || event.key == 'd'
     @player.x_speed = 0
   end
@@ -51,8 +46,6 @@ end
 update do
   @player.update(@map)
   @map.update(@player)
-  #puts "player x: #{@player.x} y: #{@player.y}"
-  #puts "player speed x: #{@player.x_speed} y: #{@player.y_speed}"
 end
 
 show

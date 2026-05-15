@@ -15,18 +15,20 @@ class Map
     draw_map(first_map)
   end
 
+  
   def update(player)
     check_map_swap(player)
     update_falling_blocks(player)
   end
   
+  #Updates all falling blocks in the current map.
   def update_falling_blocks(player)
     @blocks["falling_blocks"].each do |falling_block|
       falling_block.update(player)
     end
   end
     
-
+  #Switches maps when the when the player moves past the screen edges if the next/previous map exists.
   def check_map_swap(player)
     first_map = 0
     last_map = maps.length - 1
@@ -62,7 +64,7 @@ class Map
     end
   end
   
-
+  #Takes in a 2d array and draws all tiles and blocks.
   def draw_map(map)
     p map 
     height = map.length
@@ -138,11 +140,9 @@ class Map
           $tileset.set_tile('ground_sides_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
 
         elsif value == 84
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('big_icicle_1', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_1.png')
         elsif value == 85
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('big_icicle_2', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_2.png')
         elsif value == 100
           @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
           $tileset.set_tile('big_icicle_3', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
@@ -158,14 +158,12 @@ class Map
 
         elsif value == 82
           $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        #elsif value == 0
-          #@blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          #@blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self)
         end
       end
     end
   end
 
+  #Loads the next map and removes the current map.
   def load_next_map()
     delete_current_map()
     @current_map += 1
@@ -173,6 +171,7 @@ class Map
     draw_map(map)
   end
 
+  #Loads the previous map and removes the current map.
   def load_previous_map()
     delete_current_map
     @current_map -= 1
@@ -180,6 +179,7 @@ class Map
     draw_map(map)
   end
 
+  #Removes all blocks and tiles from the current map.
   def delete_current_map()
     @blocks.each_value do |blocks|
       blocks.each do |block|
@@ -189,6 +189,7 @@ class Map
     @blocks = {"ground" => [], "falling_blocks" => []}
   end
 
+  #Returns true if the next map exists.
   def next_map_exists?()
     if @maps[@current_map + 1]  != nil
       return true
@@ -197,6 +198,7 @@ class Map
     end
   end
 
+  #Returns true if the previous map exists.
   def previous_map_exists?()
     if @current_map < 1
       return false
@@ -205,10 +207,10 @@ class Map
     end
   end
 
+  #Takes in a falling_block object and removes it from the falling blocks array
   def remove_falling_block(block)
     for i in 0..@blocks["falling_blocks"].length 
       comparison_block = @blocks["falling_blocks"][i] 
-      p comparison_block
       if block == comparison_block
         @blocks["falling_blocks"].delete_at(i)
       end

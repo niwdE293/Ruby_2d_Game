@@ -5,8 +5,8 @@ class Falling_block
     GRAVITY = Player::GRAVITY
 
     attr_accessor :x, :y, :x_speed, :y_speed, :falling
-    def initialize(x, y, map)
-        @hitbox = Square.new(x: x, y: y, size: SIZE, color: COLOR)
+    def initialize(x, y, map, img)
+        @hitbox = Image.new(img, x: x, y: y, width: SIZE, height: SIZE)
         @x = x
         @y = y
         @x_speed = 0
@@ -24,12 +24,14 @@ class Falling_block
         handle_ground_collisions()
     end
 
+    #Handles when the block falls and collisions with player.
     def handle_fall(player)
         block_center = @x + SIZE / 2
         if @falling 
             if fell_on(player)
                 remove()
                 player.lives -= 1
+                player.display_lives()
             else
                 gravity()
             end
@@ -46,6 +48,7 @@ class Falling_block
         @y_speed += GRAVITY
     end
 
+    #Checks if player is close enough to the falling block to trigger it's fall.
     def within_fall_margin?(player)
         block_center = @x + SIZE / 2
         if player.x < block_center + FALL_MARGIN && player.x > block_center - FALL_MARGIN
@@ -54,6 +57,7 @@ class Falling_block
         return false
     end
 
+    #Stops the block when it hits the ground.
     def handle_ground_collisions()
         if hit_ground?()
             @y_speed =  0
@@ -65,6 +69,7 @@ class Falling_block
         end
     end
 
+    #Checks if the block has collided with a ground block
     def hit_ground?()
         @map.blocks["ground"].each do |ground_block|
             if collided_with(ground_block)
@@ -74,6 +79,7 @@ class Falling_block
         return false
     end
 
+    #Takes in a block and checks if self has collided with a block.
     def collided_with(block)
         result = @x + SIZE > block.x &&
                 @x < block.x + block.width &&
@@ -86,11 +92,13 @@ class Falling_block
         @y_speed += GRAVITY
     end
 
+    #Removes the block from the screen and array.
     def remove()
         @hitbox.remove
         @map.remove_falling_block(self)
     end
 
+    #Finds which side of a block was hit
     def check_collisions(block, direction)
         if collided_with(block)
             if direction == "horizontal"
@@ -114,7 +122,7 @@ class Falling_block
         end
     end
 
-
+    #Checks if the block has landed on top of player.
     def fell_on(player)
         if check_collisions(player, "vertical") == "hit top" 
             return true

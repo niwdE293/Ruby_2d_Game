@@ -28,7 +28,7 @@ class Falling_block
     def handle_fall(player)
         block_center = @x + SIZE / 2
         if @falling 
-            if fell_on(player)
+            if fell_on(player) 
                 remove()
                 player.lives -= 1
                 player.display_lives()
@@ -122,9 +122,9 @@ class Falling_block
         end
     end
 
-    #Checks if the block has landed on top of player.
-    def fell_on(player)
-        if check_collisions(player, "vertical") == "hit top" 
+    #Checks if the block has landed on top of a object.
+    def fell_on(object)
+        if check_collisions(object, "vertical") == "hit top" 
             return true
         end
         return false

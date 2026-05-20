@@ -18,15 +18,8 @@ class Map
   
   def update(player)
     check_map_swap(player)
-    update_falling_blocks(player)
   end
   
-  #Updates all falling blocks in the current map.
-  def update_falling_blocks(player)
-    @blocks["falling_blocks"].each do |falling_block|
-      falling_block.update(player)
-    end
-  end
     
   #Switches maps when the when the player moves past the screen edges if the next/previous map exists.
   def check_map_swap(player)

@@ -2,7 +2,7 @@ class Falling_block
     SIZE = Map::SQUARE_SIZE
     COLOR = 'red'
     FALL_MARGIN = 2 * SIZE
-    GRAVITY = Player::GRAVITY
+    GRAVITY = Game::GRAVITY
 
     attr_accessor :x, :y, :x_speed, :y_speed, :falling
     def initialize(x, y, map, img)
@@ -12,20 +12,21 @@ class Falling_block
         @x_speed = 0
         @y_speed = 0
         @falling = false
+        @hit_ground = false
         @map = map
         @width = SIZE
         @height = SIZE
     end
 
-    def update(player)
+    def update(player, map)
         @hitbox.x = @x
         @hitbox.y = @y
-        handle_fall(player)
+        handle_fall(player, map.blocks)
         handle_ground_collisions()
     end
 
     #Handles when the block falls and collisions with player.
-    def handle_fall(player)
+    def handle_fall(player, block_types)
         block_center = @x + SIZE / 2
         if @falling 
             if fell_on(player) 
@@ -59,13 +60,16 @@ class Falling_block
 
     #Stops the block when it hits the ground.
     def handle_ground_collisions()
+        #p "y: #{@y}"
         if hit_ground?()
-            @y_speed =  0
-            @map.blocks["ground"].each do |ground_block|
-                if collided_with(ground_block)
-                    @y = ground_block.y - SIZE
-                end
-            end
+            p "hit ground"
+            remove()
+            # @y_speed =  0
+            # @map.blocks["ground"].each do |ground_block|
+            #     if collided_with(ground_block)
+            #         @y = ground_block.y - SIZE
+            #     end
+            # end
         end
     end
 
@@ -81,10 +85,10 @@ class Falling_block
 
     #Takes in a block and checks if self has collided with a block.
     def collided_with(block)
-        result = @x + SIZE > block.x &&
+        result = @x + SIZE > block.x && 
                 @x < block.x + block.width &&
-                @y + SIZE > block.y &&
-                @y < block.y + block.height
+                @y + SIZE > block.y && 
+                @y < block.y + block.height 
         return result
     end 
 

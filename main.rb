@@ -1,22 +1,16 @@
 require 'ruby2d' 
+require_relative 'game.rb'
 require_relative 'player.rb'
 require_relative 'map.rb'
 require_relative 'falling_block.rb'
-require_relative 'game.rb'
 
 
-set fps_cap: 60
+set fps_cap: 3
 
 @game = Game.new()
 
-#@player = Player.new()
-
-#@map = Map.new()
-
-#Calculates screen height and width based on map and square size.
-
-$screen_width = @game.calculate_screen_width  #@map.maps[@map.current_map][0].length * Map::SQUARE_SIZE
-$screen_height = @game.calculate_screen_height #@map.maps[@map.current_map].length * Map::SQUARE_SIZE
+$screen_width = @game.calculate_screen_width  
+$screen_height = @game.calculate_screen_height 
 
 set width: $screen_width, height: $screen_height
 p $screen_width, $screen_height

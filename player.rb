@@ -4,7 +4,7 @@ class Player
   START_POS_Y = 20
   COLOR = 'blue'
   SPEED = 3.5
-  GRAVITY = 0.5
+  GRAVITY = Game::GRAVITY
   JUMP_STRENGTH = 11
 
   attr_accessor :x_speed, :y_speed, :hitbox , :x, :y, :can_jump, :can_grab, :grab_y, :grabing, :lives
@@ -66,8 +66,8 @@ class Player
   end
 
   #Handles collisions with all blocks in the current map.
-  def handle_block_collisions(block_keys, direction)
-    block_keys.each_value do |blocks|
+  def handle_block_collisions(blocks_hash, direction)
+    blocks_hash.each_value do |blocks|
       blocks.each do |block|
         if check_collisions(block, direction) == "hit left"
           @x = block.x - SIZE 

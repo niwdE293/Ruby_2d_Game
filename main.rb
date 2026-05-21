@@ -5,7 +5,7 @@ require_relative 'map.rb'
 require_relative 'falling_block.rb'
 
 
-set fps_cap: 3
+set fps_cap: 60
 
 @game = Game.new()
 

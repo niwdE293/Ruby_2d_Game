@@ -60,16 +60,16 @@ class Falling_block
 
     #Stops the block when it hits the ground.
     def handle_ground_collisions()
-        #p "y: #{@y}"
+        p "y: #{@y + SIZE}"
         if hit_ground?()
             p "hit ground"
-            remove()
-            # @y_speed =  0
-            # @map.blocks["ground"].each do |ground_block|
-            #     if collided_with(ground_block)
-            #         @y = ground_block.y - SIZE
-            #     end
-            # end
+            #remove()
+            @y_speed =  0
+            @map.blocks["ground"].each do |ground_block|
+                if collided_with(ground_block)
+                    @y = ground_block.y - SIZE
+                end
+            end
         end
     end
 

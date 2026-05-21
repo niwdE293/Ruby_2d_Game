@@ -10,7 +10,7 @@ class Game
         @player.update(@map)
         @map.update(@player)
         update_falling_blocks()
-        #p "player y: #{@player.y}"
+        #p "player y: #{@player.y + Player::SIZE}"
     end
 
     #Calculates screen width based on map and square size.

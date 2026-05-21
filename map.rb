@@ -66,92 +66,95 @@ class Map
       width = array.length
       for x in 0...width
         value = array[x]
-        if value == 19
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 20
-          $tileset.set_tile('grass_right_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 18 
-          $tileset.set_tile('grass_left_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 23 
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_bottom_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 24
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_bottom_right_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 22 
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_bottom_left_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 26
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_sides_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 54 
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_around_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 28  
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_top_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 30  
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_top_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 44
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 46
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 60
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_top_corner_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 62
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('grass_top_corner_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        
 
-        elsif value == 35
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 36
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 34
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 51
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 52
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_bottom_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 50
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_bottom_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 42
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_sides', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 58
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('ground_sides_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
 
-        elsif value == 84
-          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_1.png')
-        elsif value == 85
-          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_2.png')
-        elsif value == 100
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('big_icicle_3', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 101
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('big_icicle_4', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 116
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('icicles_1', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        elsif value == 117
-          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-          $tileset.set_tile('icicles_2', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # if value == 19
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 20
+        #   $tileset.set_tile('grass_right_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 18 
+        #   $tileset.set_tile('grass_left_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 23 
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_bottom_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 24
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_bottom_right_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 22 
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_bottom_left_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 26
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_sides_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 54 
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_around_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 28  
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_top_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 30  
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_top_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 44
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 46
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 60
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_top_corner_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 62
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('grass_top_corner_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
 
-        elsif value == 82
-          $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        end
+        # elsif value == 35
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 36
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 34
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 51
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 52
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_bottom_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 50
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_bottom_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 42
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_sides', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 58
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('ground_sides_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+
+        # elsif value == 84
+        #   @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_1.png')
+        # elsif value == 85
+        #   @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_2.png')
+        # elsif value == 100
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('big_icicle_3', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 101
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('big_icicle_4', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 116
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('icicles_1', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # elsif value == 117
+        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
+        #   $tileset.set_tile('icicles_2', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+
+        # elsif value == 82
+        #   $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        # end
       end
     end
   end
@@ -174,6 +177,7 @@ class Map
 
   #Removes all blocks and tiles from the current map.
   def delete_current_map()
+    $tileset.clear_tiles
     @blocks.each_value do |blocks|
       blocks.each do |block|
         block.remove

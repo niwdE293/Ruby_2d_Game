@@ -1,10 +1,10 @@
-$tileset = Tileset.new(
-    'map/Tileset.png',
-    tile_width: 16,
-    tile_height: 16,
-    padding: 0,
-    spacing: 0
-    )
+# $tileset = Tileset.new(
+#     'map/Tileset.png',
+#     tile_width: 16,
+#     tile_height: 16,
+#     padding: 0,
+#     spacing: 0
+#     )
 
 $tileset.define_tile('grass', 2, 1) #19
 $tileset.define_tile('grass_right_wall', 3, 1) #20

@@ -41,25 +41,25 @@ require 'tmx'
     end 
 
     def set_tiles()
-        tile_ids = get_tile_ids()
-        tile_positions = get_tile_positions()
-        while i < tile_ids.length
-            tile_id = tile_ids[i]
-            tile_pos = tile_positions[i]
-            i += 1
-        end
+        tile_info = get_tile_info()
+        #@tileset.set_tile('grass', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        tile_info.each_key do |id|
+            x = tile_info[id]["x"]
+            y = tile_info[id]["y"]
+            @tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
     end
 
     def get_tile_info()
         tile_info = {}
         tile_ids = get_tile_ids()
         tile_positions = get_tile_positions()
+        i = 0
         while i < tile_ids.length
             tile_id = tile_ids[i]
             tile_pos = tile_positions[i]
-            x = tile_pos[0]
-            y = tile_pos[1]
-            tile
+            x = tile_pos["x"]
+            y = tile_pos["y"]
+            tile_info[tile_id] = {"x" => x, "y" => y}
             i += 1
         end
         return tile_info
@@ -74,7 +74,7 @@ require 'tmx'
         while y < height / box_size
             x = 0
             while x < width / box_size
-                positions << [x, y]
+                positions << {"x" => x, "y" => y}
                 x += 1
             end
             y += 1
@@ -101,7 +101,8 @@ require 'tmx'
     end
 
 #p get_tile_values()
-p get_tile_pos()
+#p get_tile_pos()
+p get_tile_info()
 
 
 

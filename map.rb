@@ -12,7 +12,8 @@ class Map
     @current_map = 0
     @maps = [get_map('map/map.tmx'), get_map('map/map2.tmx')]
     first_map = @maps[@current_map]
-    draw_map(first_map)
+    define_tiles()
+    draw_map(first_map) 
   end
 
   
@@ -58,16 +59,18 @@ class Map
   end
   
   #Takes in a 2d array and draws all tiles and blocks.
-  def draw_map(map)
-    p map 
+  def draw_map(map) 
     height = map.length
     for y in 0...height
       array = map[y]
       width = array.length
       for x in 0...width
-        value = array[x]
+        id = array[x]
+        tile_info = get_tile_info()
+        if tile_info.has_key?(id)
+          $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        end
         
-
 
         # if value == 19
         #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])

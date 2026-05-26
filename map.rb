@@ -60,16 +60,20 @@ class Map
   
   #Takes in a 2d array and draws all tiles and blocks.
   def draw_map(map) 
-    height = map.length
-    for y in 0...height
-      array = map[y]
-      width = array.length
-      for x in 0...width
-        id = array[x]
-        tile_info = get_tile_info()
-        if tile_info.has_key?(id)
-          $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        end
+    draw_background(map["background"])
+    draw_falling_blocks(map["falling_blocks"])
+    draw_blocks(map["blocks"])
+    
+    # height = map.length
+    # for y in 0...height
+    #   array = map[y]
+    #   width = array.length
+    #   for x in 0...width
+    #     id = array[x]
+    #     tile_info = get_tile_info()
+    #     if tile_info.has_key?(id)
+    #       $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+    #     end
         
 
         # if value == 19
@@ -158,9 +162,57 @@ class Map
         # elsif value == 82
         #   $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
         # end
+    #   end
+    # end
+  end
+
+
+  def draw_blocks(blocks_map)
+    tile_info = get_tile_info()
+    height = blocks_map.length
+    for y in 0...height
+      array = blocks_map[y]
+      width = blocks_map[y].length
+      for x in 0...width
+        id = array[x]
+        if tile_info.has_key?(id)
+          $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        end
       end
     end
   end
+
+  def draw_falling_blocks(falling_blocks_map)
+    tile_info = get_tile_info()
+    height = falling_blocks_map.length
+    for y in 0...height
+      array = falling_blocks_map[y]
+      width = falling_blocks_map[y].length
+      for x in 0...width
+        id = array[x]
+        if tile_info.has_key?(id)
+          falling_block.new()
+          $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        end
+      end
+    end
+  end
+
+  def draw_background(background_blocks_map)
+    tile_info = get_tile_info()
+    height = background_blocks_map.length
+    for y in 0...height
+      array = background_blocks_map[y]
+      width = background_blocks_map[y].length
+      for x in 0...width
+        id = array[x]
+        if tile_info.has_key?(id)
+          $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+        end
+      end
+    end
+  end
+
 
   #Loads the next map and removes the current map.
   def load_next_map()

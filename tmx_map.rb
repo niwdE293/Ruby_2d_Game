@@ -10,17 +10,42 @@ spacing: 0
 )
 
 
-#loads a Tmx file and converts it into a 2d array.
+#Reads a Tmx file and converts it into a 2d array.
 def get_map(dir)
-    map = Tmx.load(dir) 
-    layer = map.layers[0]
-    map_arr = []
+    map = Tmx.load(dir)
+    layers = map.layers
+    map_layers = {"background" => get_map_layer(layers[0]), 
+    "falling_blocks" => get_map_layer(layers[1]),
+    "blocks" => get_map_layer(layers[2])} 
+    return map_layers
+    # map_arr = []
+    # row = []
+    # count = 0
+    # while layer.data[0] != nil
+    #     if count == layer.width
+    #         count = 0
+    #         map_arr << row
+    #         row = []
+    #     else
+    #         row << layer.data[0]
+    #         layer.data.delete_at(0)
+    #         count += 1
+    #     end
+    # end
+    # map_arr << row
+    # p map_arr
+    # return map_arr
+end 
+
+
+def get_map_layer(layer)
+    layer_arr = []
     row = []
     count = 0
     while layer.data[0] != nil
         if count == layer.width
             count = 0
-            map_arr << row
+            layer_arr << row
             row = []
         else
             row << layer.data[0]
@@ -28,10 +53,10 @@ def get_map(dir)
             count += 1
         end
     end
-    map_arr << row
-    p map_arr
-    return map_arr
-end 
+    layer_arr << row
+    return layer_arr
+end
+
 
 def define_tiles()
     tile_info = get_tile_info()
@@ -98,6 +123,7 @@ end
 #p get_tile_pos()
 #p get_tile_info()
 #p define_tiles()
+p get_map('map/map.tmx')
 
 
 

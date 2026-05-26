@@ -15,13 +15,26 @@ class Game
 
     #Calculates screen width based on map and square size.
     def calculate_screen_width()
-        width = @map.maps[@map.current_map][0].length * Map::SQUARE_SIZE  
+        map_hash = @map.maps[@map.current_map] 
+        map_key = map_hash.keys[0]
+        map_2d_array = map_hash[map_key]
+        map_array = map_2d_array[0] 
+        p "map_array: #{map_array}"
+        p "map_array length: #{map_array.length}"
+        width = map_array.length * Map::SQUARE_SIZE  
+        p "width: #{width}"
         return width
     end
 
      #Calculates screen height based on map and square size.
     def calculate_screen_height()
-        height = @map.maps[@map.current_map].length * Map::SQUARE_SIZE
+        map_hash = @map.maps[@map.current_map] 
+        map_key = map_hash.keys[0]
+        map_2d_array = map_hash[map_key]
+        p "map_2d_array: #{map_2d_array}"
+        p "map_2d_array length: #{map_2d_array.length}"
+        height = map_2d_array.length * Map::SQUARE_SIZE
+        p "height: #{height}"
         return height
     end
 

@@ -176,6 +176,7 @@ class Map
       for x in 0...width
         id = array[x]
         if tile_info.has_key?(id)
+          @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
           $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
         end
       end
@@ -191,7 +192,7 @@ class Map
       for x in 0...width
         id = array[x]
         if tile_info.has_key?(id)
-          falling_block.new()
+          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, ) Sprite.new('img/map_v1.png', color: 'white', x: x*SIZE, y: y*SIZE, z: 10, width: 32, height: 32, clip_width: 16, clip_height: 16, clip_x: 2*(SIZE/SCALE), clip_y: 1*(SIZE/SCALE))#'map/big_icicle_1.png'
           $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
         end
       end

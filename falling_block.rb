@@ -5,8 +5,9 @@ class Falling_block
     GRAVITY = Game::GRAVITY
 
     attr_accessor :x, :y, :x_speed, :y_speed, :falling
-    def initialize(x, y, map, img)
-        @hitbox = Image.new(img, x: x, y: y, width: SIZE, height: SIZE)
+    def initialize(x, y, map, id)
+        @hitbox = Sprite.new('img/map_v1.png',
+        color: 'white', x: x*SIZE, y: y*SIZE, width: 16, height: 16, clip_width: 16, clip_height: 16, clip_x: 2*(SIZE/SCALE), clip_y: 1*(SIZE/SCALE)) #Image.new(img, x: x, y: y, width: SIZE, height: SIZE)
         @x = x
         @y = y
         @x_speed = 0

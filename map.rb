@@ -192,8 +192,7 @@ class Map
       for x in 0...width
         id = array[x]
         if tile_info.has_key?(id)
-          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, ) Sprite.new('img/map_v1.png', color: 'white', x: x*SIZE, y: y*SIZE, z: 10, width: 32, height: 32, clip_width: 16, clip_height: 16, clip_x: 2*(SIZE/SCALE), clip_y: 1*(SIZE/SCALE))#'map/big_icicle_1.png'
-          $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
+          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, id) #'map/big_icicle_1.png'
         end
       end
     end
@@ -225,7 +224,7 @@ class Map
 
   #Loads the previous map and removes the current map.
   def load_previous_map()
-    delete_current_map
+    delete_current_map()
     @current_map -= 1
     map = @maps[current_map]
     draw_map(map)

@@ -65,7 +65,6 @@ def define_tiles()
         y = tile_info[id]["y"]
         $tileset.define_tile(id, x, y)
     end
-    p "tiles are defined"
 end
 
 def get_tile_info()
@@ -123,7 +122,7 @@ end
 #p get_tile_pos()
 #p get_tile_info()
 #p define_tiles()
-p get_map('map/map.tmx')
+#p get_map('map/map.tmx')
 
 
 

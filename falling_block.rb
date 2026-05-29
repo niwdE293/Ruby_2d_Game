@@ -99,6 +99,7 @@ class Falling_block
 
     #Removes the block from the screen and array.
     def remove()
+        p "Removing a falling block"
         @hitbox.remove
         @map.remove_falling_block(self)
     end

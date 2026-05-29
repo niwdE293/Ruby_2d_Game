@@ -63,107 +63,6 @@ class Map
     draw_background(map["background"])
     draw_falling_blocks(map["falling_blocks"])
     draw_blocks(map["blocks"])
-    
-    # height = map.length
-    # for y in 0...height
-    #   array = map[y]
-    #   width = array.length
-    #   for x in 0...width
-    #     id = array[x]
-    #     tile_info = get_tile_info()
-    #     if tile_info.has_key?(id)
-    #       $tileset.set_tile(id, [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-    #     end
-        
-
-        # if value == 19
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 20
-        #   $tileset.set_tile('grass_right_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 18 
-        #   $tileset.set_tile('grass_left_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 23 
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_bottom_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 24
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_bottom_right_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 22 
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_bottom_left_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 26
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_sides_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 54 
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_around_wall', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 28  
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_top_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 30  
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_top_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 44
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 46
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 60
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_top_corner_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 62
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('grass_top_corner_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-
-        # elsif value == 35
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 36
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 34
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 51
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 52
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_bottom_right', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 50
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_bottom_left', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 42
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_sides', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 58
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('ground_sides_bottom', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-
-        # elsif value == 84
-        #   @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_1.png')
-        # elsif value == 85
-        #   @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, 'map/big_icicle_2.png')
-        # elsif value == 100
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('big_icicle_3', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 101
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('big_icicle_4', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 116
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('icicles_1', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # elsif value == 117
-        #   @blocks["ground"] << Square.new(x: x * SQUARE_SIZE, y: y * SQUARE_SIZE, size: SQUARE_SIZE, color: [0, 0, 0, 0])
-        #   $tileset.set_tile('icicles_2', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-
-        # elsif value == 82
-        #   $tileset.set_tile('sky', [{x: x * SQUARE_SIZE, y: y * SQUARE_SIZE}])
-        # end
-    #   end
-    # end
   end
 
 
@@ -224,6 +123,7 @@ class Map
 
   #Loads the previous map and removes the current map.
   def load_previous_map()
+    #puts "Falling_blocks_array: #{@blocks["falling_blocks"]}"
     delete_current_map()
     @current_map -= 1
     map = @maps[current_map]
@@ -233,8 +133,12 @@ class Map
   #Removes all blocks and tiles from the current map.
   def delete_current_map()
     $tileset.clear_tiles
+    p @blocks["falling_blocks"]
     @blocks.each_value do |blocks|
       blocks.each do |block|
+        if block == @blocks["falling_blocks"][0] || block == @blocks["falling_blocks"][1]
+          p "found a falling block"
+        end
         block.remove
       end
     end
@@ -262,9 +166,10 @@ class Map
   #Takes in a falling_block object and removes it from the falling blocks array
   def remove_falling_block(block)
     for i in 0..@blocks["falling_blocks"].length 
-      comparison_block = @blocks["falling_blocks"][i] 
+      comparison_block = @blocks["falling_blocks"][i]
       if block == comparison_block
         @blocks["falling_blocks"].delete_at(i)
+        puts "A falling block was removed"
       end
     end
   end

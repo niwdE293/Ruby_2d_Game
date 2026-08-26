@@ -1,7 +1,7 @@
 class Falling_block
     SIZE = Map::SQUARE_SIZE
     COLOR = 'red'
-    FALL_MARGIN = 2 * SIZE
+    FALL_MARGIN = 3 * SIZE
     GRAVITY = Game::GRAVITY
 
     attr_accessor :x, :y, :x_speed, :y_speed, :falling
@@ -99,7 +99,7 @@ class Falling_block
 
     #Removes the block from the screen and array.
     def remove()
-        p "Removing a falling block"
+        #p "Removing a falling block"
         @hitbox.remove
         @map.remove_falling_block(self)
     end

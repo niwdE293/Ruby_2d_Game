@@ -1,6 +1,7 @@
 require 'tmx'
 require_relative 'tmx_map.rb'
 require_relative 'tileset.rb'
+require_relative 'enemy.rb'
 
 
 class Map
@@ -15,12 +16,10 @@ class Map
     define_tiles()
     draw_map(first_map) 
   end
-
   
   def update(player)
     check_map_swap(player)
   end
-  
     
   #Switches maps when the when the player moves past the screen edges if the next/previous map exists.
   def check_map_swap(player)
@@ -91,7 +90,7 @@ class Map
       for x in 0...width
         id = array[x]
         if tile_info.has_key?(id)
-          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, id) #'map/big_icicle_1.png'
+          @blocks["falling_blocks"] << Falling_block.new(x * SQUARE_SIZE, y * SQUARE_SIZE, self, id) 
         end
       end
     end
@@ -133,13 +132,17 @@ class Map
   #Removes all blocks and tiles from the current map.
   def delete_current_map()
     $tileset.clear_tiles
-    p @blocks["falling_blocks"]
     @blocks.each_value do |blocks|
-      blocks.each do |block|
-        if block == @blocks["falling_blocks"][0] || block == @blocks["falling_blocks"][1]
-          p "found a falling block"
+      i = 0
+      while i < blocks.length
+        block = blocks[i]
+        if block.is_a?(Falling_block)
+          block.remove
+          i -= 1
+        else
+          block.remove  
         end
-        block.remove
+        i += 1                 
       end
     end
     @blocks = {"ground" => [], "falling_blocks" => []}
@@ -165,11 +168,11 @@ class Map
 
   #Takes in a falling_block object and removes it from the falling blocks array
   def remove_falling_block(block)
-    for i in 0..@blocks["falling_blocks"].length 
+    for i in 0...@blocks["falling_blocks"].length 
       comparison_block = @blocks["falling_blocks"][i]
       if block == comparison_block
         @blocks["falling_blocks"].delete_at(i)
-        puts "A falling block was removed"
+        #puts "A falling block was removed"
       end
     end
   end

@@ -21,7 +21,6 @@ class Player
     @grabing = false
     @hitbox = Square.new(x: START_POS_X, y: START_POS_Y, size: SIZE, color: COLOR, z: 10)
     @lives = 3
-    @lives_text = Text.new("Lives: #{@lives}", x: 20, y: 20, style: 'bold', size: 20, color: 'red')
   end
 
   def update(map)
@@ -171,12 +170,9 @@ class Player
 
   #Updates the text for current lives.
   def display_lives()
-    @lives_text.remove
-    @lives_text = Text.new(
-      "Lives: #{@lives}",
-      x: 20, y: 20,
-      style: 'bold',
-      size: 20,
-      color: 'red')
+    if @lives_text != nil
+      @lives_text.remove
+    end
+    @lives_text = Text.new("Lives: #{@lives}", x: 20, y: 20, style: 'bold', size: 20, color: 'red')
   end
 end 

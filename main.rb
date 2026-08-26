@@ -13,7 +13,7 @@ $screen_width = @game.calculate_screen_width
 $screen_height = @game.calculate_screen_height 
 
 set width: $screen_width, height: $screen_height
-p $screen_width, $screen_height
+#p $screen_width, $screen_height
 
 
 on :key_held do |event|

@@ -4,12 +4,14 @@ class Game
     def initialize()
         @player = Player.new()
         @map = Map.new()
+        @enemy = Enemy.new(300,75)
     end
 
     def update()
         @player.update(@map)
         @map.update(@player)
         update_falling_blocks()
+        @enemy.update(@map)
         #p "player y: #{@player.y + Player::SIZE}"
     end
 
